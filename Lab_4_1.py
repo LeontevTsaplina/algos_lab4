@@ -47,7 +47,7 @@ def nelder_mead(func: Callable, eps: float = 0.001) -> tuple:
     :param eps: epsilon
     :type func: Callable
     :type eps: float
-    :return: best params a and b to minimize function
+    :return: best params a, b, c, d to minimize function
     :rtype: tuple
     """
 
@@ -61,7 +61,7 @@ def levenberg_marquardt(func: Callable) -> tuple:
 
     :param func: input function
     :type: func: Callable
-    :return: the best a and b coefficients
+    :return: the best a, b, c, d coefficients
     :rtype: tuple
     """
 
@@ -76,7 +76,7 @@ def diff_evolution(func: Callable) -> tuple:
 
     :param func: input function
     :type: func: Callable
-    :return: the best a and b coefficients
+    :return: the best a, b, c, d coefficients
     :rtype: tuple
     """
 
@@ -98,7 +98,7 @@ def errors_func_rational(params: list) -> np.array:
     Function for finding errors function of linear function for Nelder Mead's method
     (because of specific of scipy)
 
-    :param params: params a and b
+    :param params: params a, b, c, d
     :type params: list
     :return: errors sum
     :rtype: np.array
