@@ -5,15 +5,41 @@ from typing import Callable
 from scipy.optimize import minimize, least_squares, differential_evolution
 
 
-def data_func(x):
+def data_func(x: float) -> float:
+    """
+    Function to return result of counting data function
+
+    :param x: param x
+    :type x: float
+    :return: result of counting
+    :rtype: float
+    """
+
     return 1 / (x ** 2 - 3 * x + 2)
 
 
-def rational_func(x, a, b, c, d):
+def rational_func(x: list, a: float, b: float, c: float, d: float) -> np.array:
+    """
+    Function to return result of counting data function
+
+    :param x: list of elements
+    :param a: coefficient a
+    :param b: coefficient b
+    :param c: coefficient c
+    :param d: coefficient d
+    :type x: list
+    :type a: float
+    :type b: float
+    :type c: float
+    :type d: float
+    :return: result of counting
+    :rtype: np.array
+    """
+
     return (a * np.array(x) + b) / (np.array(x) ** 2 + c * np.array(x) + d)
 
 
-def nelder_mead(func: Callable, eps: float = 0.001) -> (float, float):
+def nelder_mead(func: Callable, eps: float = 0.001) -> tuple:
     """
     Function of Nelder Mead's method to find minimum of input function
 
@@ -44,7 +70,16 @@ def levenberg_marquardt(func: Callable) -> tuple:
     return res['x'][0], res['x'][1], res['x'][2], res['x'][3]
 
 
-def diff_evolution(func: Callable):
+def diff_evolution(func: Callable) -> tuple:
+    """
+    Function of differential evolution method to find minimum of input function
+
+    :param func: input function
+    :type: func: Callable
+    :return: the best a and b coefficients
+    :rtype: tuple
+    """
+
     bounds = [(-1, 1), (-1, 1), (-1, 1), (-1, 1)]
 
     res = differential_evolution(func, bounds)
@@ -60,7 +95,8 @@ y_list = [(-100 + random.normalvariate(0, 1)) if data_func(elem) < -100 else
 
 def errors_func_rational(params: list) -> np.array:
     """
-    Function for finding errors function of linear function for Nelder Mead's method (because of specific of scipy)
+    Function for finding errors function of linear function for Nelder Mead's method
+    (because of specific of scipy)
 
     :param params: params a and b
     :type params: list
@@ -96,6 +132,7 @@ def errors_func_ration_lev_marq(params: list) -> list:
             np.sum((((a * np.array(x_list) + b) / (np.array(x_list) ** 2 + c * np.array(x_list) + d)) - np.array(y_list)) ** 2)]
 
 
+# Plot of results
 plt.scatter(x_list, y_list, color='orange', s=10)
 plt.plot(x_list, rational_func(x_list, *nelder_mead(errors_func_rational)), label="nelder mead")
 plt.plot(x_list, rational_func(x_list, *levenberg_marquardt(errors_func_ration_lev_marq)), label="levenberg marquardt")
