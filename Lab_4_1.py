@@ -116,9 +116,9 @@ def errors_func_ration_lev_marq(params: list) -> list:
     Function for finding errors function of rational function for levenberg marquardt's method
     (because of specific of scipy)
 
-    :param params: params a and b
+    :param params: params a, b, c, d
     :type params: list
-    :return: [errors sum, errors sum]
+    :return: [errors sum, errors sum, errors sum, errors sum]
     :rtype: list
     """
 
